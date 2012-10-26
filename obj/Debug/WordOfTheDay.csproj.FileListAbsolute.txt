@@ -1,0 +1,9 @@
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\bin\Debug\WordOfTheDay.exe.config
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\bin\Debug\WordOfTheDay.exe
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\bin\Debug\WordOfTheDay.pdb
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.csprojResolveAssemblyReference.cache
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.Form1.resources
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.Properties.Resources.resources
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.csproj.GenerateResource.Cache
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.exe
+C:\Users\Wikzo\Documents\Visual Studio 2012\Projects\WordOfTheDay\obj\Debug\WordOfTheDay.pdb
