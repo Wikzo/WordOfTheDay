@@ -33,6 +33,8 @@ namespace WordOfTheDay
             }
             else
                 UpdateTextToDisplay("No word has ben chosen yet.");
+
+            UpdatePercentage();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -94,6 +96,8 @@ namespace WordOfTheDay
             else
                 PutInCurrentWord(_availableWordsTotal[index]);
             
+
+            // TODO: Show meaning of the word (by hovering or right clicking)
             wordToShow.Text = _currentWord;
         }
 
@@ -173,6 +177,7 @@ namespace WordOfTheDay
             {
                 ClearCurrentWordList();
                 GetRandomWord();
+                UpdatePercentage();
             }
         }
 
@@ -198,6 +203,14 @@ namespace WordOfTheDay
 
             if (!File.Exists("LearnedWords.txt"))
                 File.Create("LearnedWords.txt");
+        }
+
+        void UpdatePercentage()
+        {
+            if (_learnedWords.Count < _availableWordsTotal.Count)
+                percentage.Text = _learnedWords.Count + " / " + _availableWordsTotal.Count;
+            else
+                percentage.Text = _availableWordsTotal.Count + " / " + _availableWordsTotal.Count;
         }
     }
 }

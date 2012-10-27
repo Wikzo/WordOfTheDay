@@ -31,6 +31,7 @@
             this.wordToShow = new System.Windows.Forms.TextBox();
             this.check = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.percentage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.check)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,16 +65,29 @@
             this.label1.Text = "I have used this word today!";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // percentage
+            // 
+            this.percentage.AutoSize = true;
+            this.percentage.Location = new System.Drawing.Point(217, 118);
+            this.percentage.Name = "percentage";
+            this.percentage.Size = new System.Drawing.Size(0, 13);
+            this.percentage.TabIndex = 5;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 127);
+            this.ClientSize = new System.Drawing.Size(257, 134);
+            this.Controls.Add(this.percentage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.check);
             this.Controls.Add(this.wordToShow);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Word of the Day";
+            this.ShowIcon = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.Text = "Word of The Day";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.check)).EndInit();
             this.ResumeLayout(false);
@@ -86,6 +100,7 @@
         private System.Windows.Forms.TextBox wordToShow;
         private System.Windows.Forms.PictureBox check;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label percentage;
     }
 }
 
