@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WordOfTheDay.Properties;
 
 namespace WordOfTheDay
 {
@@ -39,7 +36,11 @@ namespace WordOfTheDay
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            // Set window location
+            if (Settings.Default.WindowLocation != null)
+            {
+                this.Location = Settings.Default.WindowLocation;
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -263,6 +264,31 @@ namespace WordOfTheDay
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
             toolTip2.Show("Postpone this word for later.", pictureBox1);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Copy window location to app settings
+            Settings.Default.WindowLocation = this.Location;
+
+            // Save settings
+            Settings.Default.Save();
+        }
+
+        private void Form_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e) {}
+
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
     }
 }
