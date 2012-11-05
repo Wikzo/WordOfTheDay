@@ -23,8 +23,8 @@ namespace WordOfTheDay
             InitializeComponent();
             CheckIfTextFilesExist();
  
-            GetAllAvailableWords();
             GetLearnedWords();
+            GetAllAvailableWords();
 
             if (GetCurrentWord() != "")
             {
@@ -32,22 +32,26 @@ namespace WordOfTheDay
                 UpdateTextToDisplay();
             }
             else
-                UpdateTextToDisplay("No word has ben chosen yet.");
+                UpdateTextToDisplay("No word has been chosen yet.");
 
             UpdatePercentage();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
         }
 
         private void UpdateTextToDisplay()
         {
-            wordToShow.Text = _currentWord;
+            //wordToShow.Text = _currentWord;
+            string[] firstWord = _currentWord.Split('=');
+            wordToShow.Text = firstWord[0];
         }
 
         private void UpdateTextToDisplay(string text)
@@ -72,50 +76,61 @@ namespace WordOfTheDay
             // Pick a word that has not been learned yet
             index = random.Next(0, wordCount);
 
-            if (_learnedWords.Contains(_availableWordsTotal[index]))
+            if (_availableWordsTotal.Count > 0)
             {
-                while (tries < 500)
+                // See if word has already been learned
+                if (_learnedWords.Contains(_availableWordsTotal[index]))
                 {
-                    tries++;
-                    index = random.Next(0, wordCount);
-
-                    if (!_learnedWords.Contains(_availableWordsTotal[index]))
+                    while (tries < 500)
                     {
-                        duplicate = false;
-                        break;
-                    }
-                    duplicate = true;
-                }
-            }
+                        tries++;
+                        index = random.Next(0, wordCount);
 
-            if (duplicate == true)
-            {
-                string duplicateString = _availableWordsTotal[index] + "_duplicate";
-                PutInCurrentWord(duplicateString);
+                        if (!_learnedWords.Contains(_availableWordsTotal[index]))
+                        {
+                            duplicate = false;
+                            break;
+                        }
+                        duplicate = true;
+                    }
+                }
+
+                if (duplicate == true)
+                {
+                    string duplicateString = "!duplicate_" + _availableWordsTotal[index];
+                    PutInCurrentWord(duplicateString);
+                }
+                else
+                    PutInCurrentWord(_availableWordsTotal[index]);
             }
             else
-                PutInCurrentWord(_availableWordsTotal[index]);
-            
+            {
+                wordToShow.Text = "ERROR - No words in 'AllWords.txt'";
+                return;
+            }
 
-            // TODO: Show meaning of the word (by hovering or right clicking)
-            wordToShow.Text = _currentWord;
+            // Show only the word and NOT the meaning
+            string[] split = _currentWord.Split('=');
+            string firstWord = split[0].TrimEnd();
+            wordToShow.Text = firstWord;
         }
 
         private void GetAllAvailableWords()
         {
-            using (StreamReader reader = new StreamReader("AllWords.txt"))
+            using (StreamReader reader = new StreamReader("AllWords.txt", Encoding.Default))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    _availableWordsTotal.Add(line);
+                    if (line != "")
+                        _availableWordsTotal.Add(line);
                 }
             }
         }
 
         private void GetLearnedWords()
         {
-            using (StreamReader reader = new StreamReader("LearnedWords.txt"))
+            using (StreamReader reader = new StreamReader("LearnedWords.txt", Encoding.Default))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -127,7 +142,7 @@ namespace WordOfTheDay
 
         private void PutInCurrentWord(string word)
         {
-            using (StreamWriter writer = new StreamWriter("CurrentWord.txt"))
+            using (StreamWriter writer = new StreamWriter("CurrentWord.txt", false, Encoding.Default))
             {
                 writer.WriteLine(word);
                 _currentWord = word;
@@ -136,7 +151,7 @@ namespace WordOfTheDay
 
         string GetCurrentWord()
         {
-            using (StreamReader reader = new StreamReader("CurrentWord.txt"))
+            using (StreamReader reader = new StreamReader("CurrentWord.txt", Encoding.Default))
             {
                 string line;
                 if ((line = reader.ReadLine()) != null)
@@ -149,17 +164,21 @@ namespace WordOfTheDay
         {
             if (_currentWord != "")
             {
-                using (StreamWriter writer = File.AppendText("LearnedWords.txt"))
+                // No duplicates
+                if (_currentWord.First() != '!')
                 {
-                    writer.WriteLine(_currentWord);
-                }
+                    using (StreamWriter writer = File.AppendText("LearnedWords.txt"))
+                    {
+                        writer.WriteLine(_currentWord);
+                    }
 
-                _learnedWords.Add(_currentWord);
+                    _learnedWords.Add(_currentWord);
+                }
             }
 
             File.WriteAllText("CurrentWord.txt", String.Empty);
             _currentWord = "";
-            UpdateTextToDisplay("No word has ben chosen yet.");
+            UpdateTextToDisplay("No word has been chosen yet.");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -211,6 +230,39 @@ namespace WordOfTheDay
                 percentage.Text = _learnedWords.Count + " / " + _availableWordsTotal.Count;
             else
                 percentage.Text = _availableWordsTotal.Count + " / " + _availableWordsTotal.Count;
+        }
+
+
+        private void toolTip2_Popup(object sender, PopupEventArgs e)
+        {
+            
+        }
+
+        private void wordToShow_MouseEnter(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void wordToShow_MouseClick(object sender, MouseEventArgs e)
+        {
+            string description = _currentWord.TrimStart();
+            toolTip2.Show(description, wordToShow);
+        }
+
+        private void wordToShow_MouseHover(object sender, EventArgs e)
+        {
+            string description = _currentWord.TrimStart();
+            toolTip2.Show(description, wordToShow);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            GetRandomWord();
+        }
+
+        private void pictureBox1_MouseHover(object sender, EventArgs e)
+        {
+            toolTip2.Show("Postpone this word for later.", pictureBox1);
         }
     }
 }
