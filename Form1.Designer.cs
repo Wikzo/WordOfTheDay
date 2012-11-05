@@ -66,7 +66,7 @@
             // percentage
             // 
             this.percentage.AutoSize = true;
-            this.percentage.Location = new System.Drawing.Point(395, 129);
+            this.percentage.Location = new System.Drawing.Point(389, 129);
             this.percentage.Name = "percentage";
             this.percentage.Size = new System.Drawing.Size(24, 13);
             this.percentage.TabIndex = 5;
@@ -80,7 +80,7 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::WordOfTheDay.Properties.Resources.postpone1;
-            this.pictureBox1.Location = new System.Drawing.Point(398, 101);
+            this.pictureBox1.Location = new System.Drawing.Point(392, 101);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(28, 25);
             this.pictureBox1.TabIndex = 6;
